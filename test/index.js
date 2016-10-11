@@ -7,7 +7,7 @@ import {Application} from 'spectron';
 
 let app;
 
-test.before(async () => {
+test.before(() => {
   let pathToBinary;
 
   switch (process.platform) {
@@ -27,12 +27,10 @@ test.before(async () => {
     path: pathToBinary
   });
 
-  await app.start();
+  return app.start();
 });
 
-test.after(async () => {
-  await app.stop();
-});
+test.after(() => app.stop());
 
 test('see if dev tools are open', async t => {
   await app.client.waitUntilWindowLoaded();
